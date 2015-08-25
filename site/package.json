@@ -1,0 +1,27 @@
+{
+  "name": "jdtuserguide",
+  "version": "1.0.0",
+  "description": "JDT User Guide",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trispark/jdtuserguide.git"
+  },
+  "author": "Geert De Laet",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/trispark/jdtuserguide/issues"
+  },
+  "devDependencies": {
+    "gulp": "~3.9.0",
+    "gulp-util": "~3.0.6",
+    "gulp-file-include": "~0.13.2",
+    "gulp-rename": "~1.2.2",
+    "gulp-clean": "~0.3.1",
+    "gulp-awspublish": "~2.0.2",
+    "yargs": "~3.15.0"
+  }
+}
