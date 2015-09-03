@@ -61,14 +61,27 @@ $(document).ready(function() {
 		else {
 			$('#contact-form').append('<p class="contact-form-message"><i class="fa fa-spinner fa-pulse"></i>'+sendingMessage+'</p>');
 			
-			var formInput = $(this).serialize();
-			$.post($(this).attr('action'),formInput, function(data){
-				$('#contact-form .contact-form-message').remove();
-				$('#contact-form').append('<p class="contact-form-message">'+okMessage+'</p>');
-				$('#contact-form').removeClass('clicked');
-				$('#contact-form')[0].reset();
-				$('#contact-form .form-control').removeClass('input-filled');
-			});
+			var formInput =
+			{
+				sender: $('#contact-name').val(),
+				email: $('#contact-mail').val(),
+				message: $('#contact-message').val()
+			};
+
+			$.ajax({
+				type: "POST",
+				url: $(this).attr('action'),
+				data: JSON.stringify(formInput),
+				contentType: "application/json",
+				success: function (data)
+				{
+					$('#contact-form .contact-form-message').remove();
+					$('#contact-form').append('<p class="contact-form-message">' + okMessage + '</p>');
+					$('#contact-form').removeClass('clicked');
+					$('#contact-form')[0].reset();
+					$('#contact-form .form-control').removeClass('input-filled');
+				}
+		});
 			
 		}
 		

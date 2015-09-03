@@ -1,6 +1,8 @@
-var paths = {
-  templates: 'templates'
-};
+var filesToMove = [
+  './assets/**/*.*',
+  './*.html'
+];
+
 
 var argv = require('yargs').argv;
 
@@ -12,8 +14,7 @@ var gulp  = require('gulp'),
     rename = require('gulp-rename'),
     path = require('path'),
     awspublish = require("gulp-awspublish"),
-    fs = require("fs"),
-    aws = require("./aws");
+    fs = require("fs");
 
 
 // create a default task and just log a message
@@ -22,30 +23,9 @@ gulp.task('default', function() {
 });
 
 // creates a distribution folder
-gulp.task('makedist',['fileinclude'],function() {
+gulp.task('makedist',['move'],function() {
   return gutil.log('Finished makedist task.')
 });
-
-
-// applies the fileincludes to the templates
-gulp.task('fileinclude',['move'], function() {
-  return gulp.src(path.join(paths.templates, '*.tpl.html'))
-      .pipe(fileinclude())
-      .pipe(rename({
-        extname: ""
-      }))
-      .pipe(rename({
-        extname: ".html"
-      }))
-      .pipe(gulp.dest('dist'));
-});
-
-
-var filesToMove = [
-  './css/**/*.*',
-  './fonts/**/*.*',
-  './js/**/*.*'
-];
 
 // cleans the distribution folder
 gulp.task('clean', function(){
@@ -70,9 +50,9 @@ gulp.task('publish', function() {
       "accessKeyId": argv.awskey,
       "secretAccessKey": argv.awssecret,
       "region": "eu-west-1" ,
-    params: {
-      Bucket: "jdt.trispark.com"
-    }
+      "params": {
+        "Bucket": "marebollen.be"
+      }
   });
 
   // define custom headers
@@ -82,9 +62,9 @@ gulp.task('publish', function() {
   };
 
   return gulp.src('./dist/**')
-      .pipe(rename(function (path) {
-        path.dirname  = '/userguide/' + path.dirname;
-      }))
+    //  .pipe(rename(function (path) {
+    //    path.dirname  = '/userguide/' + path.dirname;
+    //  }))
     // gzip, Set Content-Encoding headers and add .gz extension
     //  .pipe(awspublish.gzip({ ext: '.gz' }))
 
