@@ -1,6 +1,8 @@
 var filesToMove = [
   './assets/**/*.*',
-  './*.html'
+  './*.html',
+  './sitemap.xml',
+  './portfolio/**/*.*'
 ];
 
 
@@ -51,7 +53,7 @@ gulp.task('publish', function() {
       "secretAccessKey": argv.awssecret,
       "region": "eu-west-1" ,
       "params": {
-        "Bucket": "marebollen.be"
+        "Bucket": "www.marebollen.be"
       }
   });
 
